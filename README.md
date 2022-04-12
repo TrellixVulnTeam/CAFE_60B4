@@ -44,12 +44,16 @@ opencv-contrib-python 4.1.1.26
 
 (3) To utilize optical flow, please follow the [instructions](https://github.com/vt-vl-lab/flownet2.pytorch) to install FlowNet2, then download the pretrained model  [FlowNet2](https://drive.google.com/file/d/1hF8vS6YeHkx3j2pfCeQqqZGwA_PJq_Da/view?usp=sharing), and move the downloaded model `FlowNet2_checkpoint.pth.tar` into `./FlowNet2_src/pretrained`.  Finally run `calc_optical_flow.py` (in PyTorch 0.3.0): `python calc_optical_flow.py`. This will generate a new folder named `optical_flow` that contains the optical flow of the different datasets. 
 
-## 3.  Testing with saved models
+## 3. Pre-training 
 
-(1) Edit the file `config.cfg` according to the model you want to test in  `./data ` : e.g. `dataset_name`, the distillation and consistency based anomaly score weight `w_raw` and `w_consistency `(refer to the settings in our paper).  
+We follow this [repository](https://github.com/weiaicunzai/pytorch-cifar100) to perform pre-training of the teacher network. To yield the pre-trained teacher network, please run `train.py` in `./pre_training/pytorch-cifar100`: `python train.py -net resnet34`. We also provide the pre-trained teacher model used in our experiments at `./pre_training/pytorch-cifar100/checkpoint/resnet34/resnet34-200-regular.pth`.  You can skip this pre-training step and directly use the saved model for the following testing.
+
+## 4.  Testing with saved models
+
+(1) Edit the file `config.cfg` according to the model you want to test in  `./data ` : e.g. `dataset_name` (UCSDped2/avenue/ShanghaiTech), the distillation and consistency based anomaly score weight `w_raw` and `w_consistency ` (refer to the settings in our paper).  
 
 (2) Run  `test.py`: `python test.py`.
 
-## 4. Training
+## 5. Training
 
 Please run `train.py`: `python train.py`. Before training, you can edit the file `config.cfg` according to your own requirements or implementation details reported in this paper.
